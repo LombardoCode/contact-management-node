@@ -4,6 +4,7 @@
   "description": "A contact management tool made with Node.js",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/LombardoCode/contact-management-node/issues"
   },
-  "homepage": "https://github.com/LombardoCode/contact-management-node#readme"
+  "homepage": "https://github.com/LombardoCode/contact-management-node#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.14"
+  }
 }
