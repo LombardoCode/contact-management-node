@@ -1,0 +1,19 @@
+{
+  "name": "contact-management-node",
+  "version": "1.0.0",
+  "description": "A contact management tool made with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LombardoCode/contact-management-node.git"
+  },
+  "author": "Lombardo Moreno Rodríguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LombardoCode/contact-management-node/issues"
+  },
+  "homepage": "https://github.com/LombardoCode/contact-management-node#readme"
+}
