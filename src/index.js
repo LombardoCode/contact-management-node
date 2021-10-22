@@ -7,6 +7,22 @@ require('dotenv').config();
 
 // Settings
 app.set('port', process.env.PORT || 3000)
+
+// Handlebars
+app.set('view engine', 'handlebars');
+app.engine('handlebars', exhbs({
+  layoutsDir: path.join(app.get('views'), 'layouts'),
+  partialsDir: path.join(app.get('views'), 'partials'),
+  helpers: require('../lib/handlebars')
+}));
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+  res.render('index', {layout : 'main'});
+});
+
+
+/*
 app.set('views', path.join(__dirname, 'views'))
 app.engine('.hbs', exhbs({
   defaultLayout: 'main',
@@ -16,6 +32,7 @@ app.engine('.hbs', exhbs({
   helpers: require('../lib/handlebars')
 }))
 app.set('view engine', '.hbs')
+*/
 
 // Database
 require('./db')
