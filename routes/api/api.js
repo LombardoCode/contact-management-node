@@ -3,5 +3,4 @@ const apiContactRouter = require('./contact')
 
 router.use('/contact', apiContactRouter)
 
-
 module.exports = router;

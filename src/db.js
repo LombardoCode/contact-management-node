@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const ContactModel = require('../models/Contact')
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.USERNAME, process.env.PASSWORD, {
     host: process.env.HOST,
-    dialect: 'mysql'
+    dialect: process.env.DB_TYPE
   }
 );
 
