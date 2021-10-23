@@ -1,11 +1,21 @@
 const express = require('express')
 const router = express.Router();
 
-/*
+const ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next()
+  } else {
+    res.send(401);
+  }
+}
+
 router.get('/', (req, res) => {
-  res.render("");
+  res.render('index', {layout : 'main'});
 });
-*/
+
+router.get('/test', ensureAuthenticated, (req, res) => {
+  res.render('test', {layout : 'main'});
+})
 
 // API
 router.use('/api', require('./api/api'))
