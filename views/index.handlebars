@@ -56,22 +56,37 @@
       let name = $('#name');
       let phone = $('#phone');
 
-      // Create the HTML markup to be added to the contacts table
-      let tr = $('<tr></tr>');
-      let td_name = $('<td></td>').text(name.val());
-      let td_phone = $('<td></td>').text(phone.val());
-      tr.append(td_name, td_phone);
+      // Ajax request to create the contact in the database
+      $.ajax('/api/contact', {
+        type: 'POST',
+        data: {
+          name: name.val(),
+          phone: phone.val()
+        },
+        success: function (data, status, xhr) {
+          console.log(data);
 
-      let td_options = $('<td class="options"></td>');
-      let edit_option = $('<a href="/contact/edit/1"></a>').text("Editar");
-      let delete_option = $('<a href="/contact/delete/1"></a>').text("Borrar");
-      td_options.append(edit_option, delete_option);
-      tr.append(td_options);
+          // Create the HTML markup to be added to the contacts table
+          let tr = $('<tr></tr>');
+          let td_name = $('<td></td>').text(data.name);
+          let td_phone = $('<td></td>').text(data.phone);
+          tr.append(td_name, td_phone);
 
-      $('#contacts-table tbody').append(tr);
+          let td_options = $('<td class="options"></td>');
+          let edit_option = $(`<a class="button is-info" href="/contact/edit/${data.id}"></a>`).text("Editar");
+          let delete_option = $(`<a class="button is-info" href="/contact/delete/${data.id}"></a>`).text("Borrar");
+          td_options.append(edit_option, delete_option);
+          tr.append(td_options);
 
-      name.val('');
-      phone.val('');
+          $('#contacts-table tbody').append(tr);
+
+          name.val('');
+          phone.val('');
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          console.log(errorMessage);
+        }
+      });
 
       console.log("hola")
     });

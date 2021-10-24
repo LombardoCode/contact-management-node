@@ -29,20 +29,24 @@ passport.use(new LocalStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  console.log("passport 1")
+  return done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await User.findOne({
+  await User.findOne({
     where: {
       id: {
         [Op.eq]: id
       }
     }
+  })
+  .then(function(user) {
+    if (user) {
+      done(null, user.get());
+    } else {
+      done(user.errors, null);
+    }
   });
-
-  if (user) {
-    done(null, user);
-  }
 })
 

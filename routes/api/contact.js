@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
 
 // Create contact
 router.post('/', async (req, res) => {
+  req.body.userId = req.user.id;
   const contact = await Contact.create(req.body);
   res.json(contact);
 })
