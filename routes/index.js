@@ -9,7 +9,7 @@ const ensureAuthenticated = (req, res, next) => {
   }
 }
 
-router.get('/', (req, res) => {
+router.get('/', ensureAuthenticated, (req, res) => {
   res.render('index', {layout : 'main'});
 });
 

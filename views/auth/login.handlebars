@@ -3,14 +3,14 @@
     <div class="columns is-centered">
       <div class="column has-background-white is-8 is-5-fullhd is-6-desktop is-12-mobile border py-5 px-5">
         <p class="has-text-centered is-size-5 is-size-4-tablet mb-3">Login</p>
-        <form action="">
+        <form action="/api/auth/login" method="POST">
           <div class="control mb-5">
             <label for="email">Email</label>
-            <input id="email" class="input" type="text" placeholder="Ingrese su email">
+            <input id="email" class="input" type="text" name="email" placeholder="Ingrese su email">
           </div>
           <div class="control mb-4">
             <label for="password">Contraseña</label>
-            <input id="password" class="input" type="password" placeholder="Ingrese su contraseña">
+            <input id="password" class="input" type="password" name="password" placeholder="Ingrese su contraseña">
           </div>
           <div class="control">
             <input class="button is-info is-fullwidth is-medium" type="submit" value="Ingresar">

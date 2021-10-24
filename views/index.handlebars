@@ -1,1 +1,99 @@
-<h1>Hello world, Handlebars!</h1>
+<div class="has-background-info-dark height-100vh">
+  {{#> container}}
+    <div class="columns is-variable ">
+      <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped">
+        <header class="has-background-info px-3 py-2">
+          <h3 class="has-text-white">Crear un contacto</h3>
+        </header>
+        <form class="px-3 py-4">
+          <div class="control mb-5">
+            <label for="name">Nombre</label>
+            <input id="name" class="input" type="text" name="name" placeholder="Ingrese el nombre del contacto">
+          </div>
+          <div class="control mb-4">
+            <label for="phone">Teléfono</label>
+            <input id="phone" class="input" type="text" name="phone" placeholder="Ingrese el teléfono del contacto">
+          </div>
+          <div class="control">
+            <input id="submit" class="button is-info is-fullwidth is-medium" type="submit" value="Crear contacto">
+          </div>
+        </form>
+      </section>
+      <div class="column border has-background-white ml-2-tablet is-7-desktop px-0 py-0 is-clipped">
+        <header class="has-background-info px-3 py-2">
+          <h3 class="has-text-white">Lista de contactos</h3>
+        </header>
+        <table id="contacts-table" class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lombardo</td>
+              <td>XXX-XXX-XXXX</td>
+              <td>Opciones</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/container}}
+</div>
+
+<script>
+  // If the DOM is ready...
+  $(document).ready(function() {
+    // We show/hide the menu on mobile screens
+    $("#submit").click(function(e) {
+      // Preventing the page to be refreshed
+      e.preventDefault();
+
+      // Getting the input values
+      let name = $('#name');
+      let phone = $('#phone');
+
+      // Create the HTML markup to be added to the contacts table
+      let tr = $('<tr></tr>');
+      let td_name = $('<td></td>').text(name.val());
+      let td_phone = $('<td></td>').text(phone.val());
+      tr.append(td_name, td_phone);
+
+      let td_options = $('<td class="options"></td>');
+      let edit_option = $('<a href="/contact/edit/1"></a>').text("Editar");
+      let delete_option = $('<a href="/contact/delete/1"></a>').text("Borrar");
+      td_options.append(edit_option, delete_option);
+      tr.append(td_options);
+
+      $('#contacts-table tbody').append(tr);
+
+      name.val('');
+      phone.val('');
+
+      console.log("hola")
+    });
+  });
+</script>
+
+<style>
+  .height-100vh {
+    height: 100vh;
+  }
+
+  .border {
+    border-radius: 10px;
+  }
+
+  @media screen and (width >= 769px) {
+    .mr-2-tablet {
+      margin-right: 10px;
+    }
+
+    .ml-2-tablet {
+      margin-left: 10px;
+    }
+  }
+</style>
