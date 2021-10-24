@@ -5,12 +5,16 @@ const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   } else {
-    res.send(401);
+    res.redirect('/login');
   }
 }
 
 router.get('/', (req, res) => {
   res.render('index', {layout : 'main'});
+});
+
+router.get('/login', (req, res) => {
+  res.render('auth/login', {layout : 'main'});
 });
 
 router.get('/test', ensureAuthenticated, (req, res) => {
