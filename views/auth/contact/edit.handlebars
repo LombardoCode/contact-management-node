@@ -1,0 +1,72 @@
+<div class="has-background-info-dark height-100vh">
+  {{#> container}}
+    <div class="columns is-variable is-centered">
+      <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped">
+        <header class="has-background-info px-3 py-2">
+          <h3 class="has-text-white">Editar un contacto</h3>
+        </header>
+        <form class="px-3 py-4">
+          <div class="control mb-5">
+            <label for="name">Nombre</label>
+            <input id="name" class="input" type="text" name="name" placeholder="Ingrese el nombre del contacto" value="{{data.contact.name}}">
+          </div>
+          <div class="control mb-4">
+            <label for="phone">Teléfono</label>
+            <input id="phone" class="input" type="text" name="phone" placeholder="Ingrese el teléfono del contacto" value="{{data.contact.phone}}">
+          </div>
+          <div class="control">
+            <input id="submit" class="button is-info is-fullwidth is-medium" type="submit" value="Editar contacto">
+          </div>
+        </form>
+      </section>
+    </div>
+  {{/container}}
+</div>
+
+<script>
+  $('#submit').click(function(e) {
+    e.preventDefault();
+
+    let name = $('#name');
+    let phone = $('#phone');
+    let url = window.location.pathname;
+    let contactId = url.substring(url.lastIndexOf('/') + 1);
+
+
+    $.ajax(`/api/contact/${contactId}`, {
+      method: 'PUT',
+      data: {
+        name: name.val(),
+        phone: phone.val()
+      },
+      success: function (data, status, xhr) {
+        if (data.success) {
+          return window.location.replace('/');
+        }
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+        console.log(errorMessage);
+      }
+    })
+  })
+</script>
+
+<style>
+  .height-100vh {
+    height: 100vh;
+  }
+
+  .border {
+    border-radius: 10px;
+  }
+
+  @media screen and (width >= 769px) {
+    .mr-2-tablet {
+      margin-right: 10px;
+    }
+
+    .ml-2-tablet {
+      margin-left: 10px;
+    }
+  }
+</style>

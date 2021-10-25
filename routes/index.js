@@ -17,6 +17,8 @@ router.get('/login', (req, res) => {
   res.render('auth/login', {layout : 'main'});
 });
 
+router.use('/contact', require('./contact'));
+
 router.get('/test', ensureAuthenticated, (req, res) => {
   res.render('test', {layout : 'main'});
 })

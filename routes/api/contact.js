@@ -4,7 +4,15 @@ const { Op } = require('sequelize');
 
 // Get all contacts
 router.get('/', async (req, res) => {
-  const contacts = await Contact.findAll();
+  let loggedInUserId = req.user.id;
+
+  const contacts = await Contact.findAll({
+    where: {
+      userId: {
+        [Op.eq]: loggedInUserId
+      }
+    }
+  });
   res.json(contacts);
 })
 
@@ -30,12 +38,16 @@ router.get('/:id', async (req, res) => {
 
 // Update specific contact
 router.put('/:id', async (req, res) => {
-  const contact = await Contact.update(req.body, {
+  const editedContact = await Contact.update(req.body, {
     where: {
       id: req.params.id
     }
-  });
-  res.json(contact);
+  })
+  .then(() => {
+    return res.json({
+      success: true
+    });
+  })
 })
 
 // Delete a contact

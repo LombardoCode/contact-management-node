@@ -31,13 +31,7 @@
               <th>Opciones</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Lombardo</td>
-              <td>XXX-XXX-XXXX</td>
-              <td>Opciones</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
@@ -47,6 +41,21 @@
 <script>
   // If the DOM is ready...
   $(document).ready(function() {
+    // We bring up all the contact from the logged in user
+    $.ajax('/api/contact', {
+        type: 'GET',
+        success: function (data, status, xhr) {
+          for (let i = 0; i < data.length; i++) {
+            let contact = data[i];
+            addElementToTable(contact);
+          }
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          console.log(errorMessage);
+        }
+      });
+
+
     // We show/hide the menu on mobile screens
     $("#submit").click(function(e) {
       // Preventing the page to be refreshed
@@ -65,20 +74,7 @@
         },
         success: function (data, status, xhr) {
           console.log(data);
-
-          // Create the HTML markup to be added to the contacts table
-          let tr = $('<tr></tr>');
-          let td_name = $('<td></td>').text(data.name);
-          let td_phone = $('<td></td>').text(data.phone);
-          tr.append(td_name, td_phone);
-
-          let td_options = $('<td class="options"></td>');
-          let edit_option = $(`<a class="button is-info" href="/contact/edit/${data.id}"></a>`).text("Editar");
-          let delete_option = $(`<a class="button is-info" href="/contact/delete/${data.id}"></a>`).text("Borrar");
-          td_options.append(edit_option, delete_option);
-          tr.append(td_options);
-
-          $('#contacts-table tbody').append(tr);
+          addElementToTable(data);
 
           name.val('');
           phone.val('');
@@ -91,6 +87,26 @@
       console.log("hola")
     });
   });
+
+
+
+
+  // Functions
+  function addElementToTable(contact) {
+    // Create the HTML markup to be added to the contacts table
+    let tr = $('<tr></tr>');
+    let td_name = $('<td></td>').text(contact.name);
+    let td_phone = $('<td></td>').text(contact.phone);
+    tr.append(td_name, td_phone);
+
+    let td_options = $('<td class="options"></td>');
+    let edit_option = $(`<a class="button is-info" href="/contact/edit/${contact.id}"></a>`).text("Editar");
+    let delete_option = $(`<a class="button is-info" href="/contact/delete/${contact.id}"></a>`).text("Borrar");
+    td_options.append(edit_option, delete_option);
+    tr.append(td_options);
+
+    $('#contacts-table tbody').append(tr);
+  }
 </script>
 
 <style>
