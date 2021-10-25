@@ -14,17 +14,25 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a id="username" class="navbar-link">
-            {{username}}
-          </a>
-
-          <div id="account-dropdown" class="navbar-dropdown is-hoverable">
-            <a class="navbar-item">
-              Cerrar sesión
+        {{#if user.name}}
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a id="username" class="navbar-link">
+              {{user.name}}
             </a>
+            <div id="account-dropdown" class="navbar-dropdown is-hoverable">
+              <a class="navbar-item" href="/api/auth/logout">
+                Cerrar sesión
+              </a>
+            </div>
           </div>
-        </div>
+        {{else}}
+          <a class="navbar-item" href="/login">
+            Iniciar sesión
+          </a>
+          <a class="navbar-item" href="/register">
+            Registrarse
+          </a>
+        {{/if}}
       </div>
     </div>
   </div>
