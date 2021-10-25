@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
+// Auth middleware
 const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
@@ -9,15 +10,20 @@ const ensureAuthenticated = (req, res, next) => {
   }
 }
 
+// Protected routes
 router.get('/', ensureAuthenticated, (req, res) => {
   res.render('index', {layout : 'main'});
 });
+router.use('/contact', ensureAuthenticated, require('./contact'));
 
+// Public routes
 router.get('/login', (req, res) => {
-  res.render('auth/login', {layout : 'main'});
+  res.render('login', {layout : 'main'});
 });
 
-router.use('/contact', require('./contact'));
+router.get('/register', (req, res) => {
+  res.render('register', {layout: 'main'});
+})
 
 router.get('/test', ensureAuthenticated, (req, res) => {
   res.render('test', {layout : 'main'});
