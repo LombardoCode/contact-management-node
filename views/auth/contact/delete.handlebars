@@ -1,0 +1,81 @@
+<div class="has-background-info-dark height-100vh">
+  {{#> container}}
+    <div class="columns is-variable is-centered">
+      <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped">
+        <header class="has-background-danger px-3 py-2">
+          <h3 class="has-text-white">Eliminar un contacto</h3>
+        </header>
+        <div class="px-3 py-4">
+          <p>¿Seguro que desea eliminar el siguiente contacto?</p>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{data.contact.name}}</td>
+                <td>{{data.contact.phone}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <form>
+            <div class="control">
+              <input id="submit" class="button is-danger is-fullwidth is-medium" type="submit" value="Eliminar contacto">
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  {{/container}}
+</div>
+
+<script>
+  $('#submit').click(function(e) {
+    e.preventDefault();
+
+    let name = $('#name');
+    let phone = $('#phone');
+    let url = window.location.pathname;
+    let contactId = url.substring(url.lastIndexOf('/') + 1);
+
+
+    $.ajax(`/api/contact/${contactId}`, {
+      method: 'DELETE',
+      data: {
+        name: name.val(),
+        phone: phone.val()
+      },
+      success: function (data, status, xhr) {
+        if (data.success) {
+          return window.location.replace('/');
+        }
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+        console.log(errorMessage);
+      }
+    })
+  })
+</script>
+
+<style>
+  .height-100vh {
+    height: 100vh;
+  }
+
+  .border {
+    border-radius: 10px;
+  }
+
+  @media screen and (width >= 769px) {
+    .mr-2-tablet {
+      margin-right: 10px;
+    }
+
+    .ml-2-tablet {
+      margin-left: 10px;
+    }
+  }
+</style>

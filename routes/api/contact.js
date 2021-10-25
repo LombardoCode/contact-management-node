@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
 
 // Update specific contact
 router.put('/:id', async (req, res) => {
-  const editedContact = await Contact.update(req.body, {
+  await Contact.update(req.body, {
     where: {
       id: req.params.id
     }
@@ -52,12 +52,16 @@ router.put('/:id', async (req, res) => {
 
 // Delete a contact
 router.delete('/:id', async (req, res) => {
-  const contact = await Contact.destroy({
+  await Contact.destroy({
     where: {
       id: req.params.id
     }
+  })
+  .then(() => {
+    res.json({
+      success: true
+    });
   });
-  res.json(contact);
 })
 
 module.exports = router;

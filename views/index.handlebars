@@ -100,8 +100,8 @@
     tr.append(td_name, td_phone);
 
     let td_options = $('<td class="options"></td>');
-    let edit_option = $(`<a class="button is-info" href="/contact/edit/${contact.id}"></a>`).text("Editar");
-    let delete_option = $(`<a class="button is-info" href="/contact/delete/${contact.id}"></a>`).text("Borrar");
+    let edit_option = $(`<a class="button is-info mr-2" href="/contact/edit/${contact.id}"></a>`).text("Editar");
+    let delete_option = $(`<a class="button is-danger" href="/contact/delete/${contact.id}"></a>`).text("Borrar");
     td_options.append(edit_option, delete_option);
     tr.append(td_options);
 
