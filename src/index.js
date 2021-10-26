@@ -5,6 +5,7 @@ const exhbs = require('express-handlebars');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 require('dotenv').config();
 
 // Settings
@@ -49,12 +50,17 @@ app.use(
   })
 );
 
+// Initializing passport.js
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Flash messages
+app.use(flash());
 
 // Global variables
 app.use((req, res, next) => {
   app.locals.user = req.user;
+  app.locals.errors = req.flash("errors");
   next();
 });
 

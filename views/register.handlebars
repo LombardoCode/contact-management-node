@@ -3,6 +3,7 @@
     <div class="columns is-centered">
       <div class="column has-background-white is-8 is-5-fullhd is-6-desktop is-12-mobile border py-5 px-5">
         <p class="has-text-centered is-size-5 is-size-4-tablet mb-3">Registarse</p>
+        {{> flash_message errors=errors}}
         <form action="/api/auth/register" method="POST">
           <div class="control mb-5">
             <label for="name">Nombre</label>
