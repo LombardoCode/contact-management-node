@@ -1,0 +1,90 @@
+<div class="has-background-info-dark height-100vh">
+  {{#> container}}
+    <div class="px-4 has-text-white fnt-quicksand my-6">
+      <p class="has-text-centered is-size-5 is-size-4-tablet mb-4">Este proyecto ha sido realizado por:</p>
+      <p class="has-text-centered is-size-2 is-size-1-tablet mb-4">Lombardo Moreno Rodríguez</p>
+      <p class="has-text-centered is-size-4 mb-10">2021</p>
+      <div class="buttons_wrapper mt-4">
+        <a href="https://www.linkedin.com/in/lombardo-m-bba399218/" class="button_a text-2xl border mb-5 has-text-centered is-size-6 is-size-5-tablet">
+          <i class="fab fa-linkedin"></i>
+          Linked in
+        </a>
+        <a href="https://github.com/LombardoCode/contact-management-node" class="button_a text-2xl border mb-5 has-text-centered is-size-6 is-size-5-tablet">
+          <i class="fab fa-github"></i>
+          Github
+        </a>
+      </div>
+    </div>
+  {{/container}}
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+  .fnt-quicksand {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .height-100vh {
+    height: 100vh;
+  }
+
+  .buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .buttons_wrapper a {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .buttons_wrapper a:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .buttons_wrapper a:nth-child(1) {
+    margin-right: 0px;
+  }
+
+  .buttons_wrapper a:nth-child(2) {
+    margin-left: 0px;
+  }
+
+  .button_a {
+    padding: 20px 40px;
+  }
+
+  .border {
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    color: #ffffff;
+  }
+
+  .mb-4-mobile {
+    margin-bottom: 40px;
+  }
+
+  @media screen and (width >= 769px) {
+    .buttons_wrapper {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+    }
+
+    .buttons_wrapper a:nth-child(1) {
+      margin-right: 10px;
+    }
+
+    .buttons_wrapper a:nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+</style>

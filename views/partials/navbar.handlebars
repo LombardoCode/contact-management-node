@@ -15,6 +15,9 @@
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
         {{#if user.name}}
+          <a class="navbar-item" href="/about">
+            Acerca de
+          </a>
           <div class="navbar-item has-dropdown is-hoverable">
             <a id="username" class="navbar-link">
               {{user.name}}
@@ -31,6 +34,9 @@
           </a>
           <a class="navbar-item" href="/register">
             Registrarse
+          </a>
+          <a class="navbar-item" href="/about">
+            Acerca de
           </a>
         {{/if}}
       </div>

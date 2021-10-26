@@ -26,13 +26,15 @@ router.post('/register',
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = await User.create({
+    await User.create({
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword
+    })
+    .then(() => {
+      req.flash("success", "¡Usuario creado satisfactoriamente!")
+      return res.redirect('/login');
     });
-
-    return res.json(user);
 })
 
 // User login

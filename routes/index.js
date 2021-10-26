@@ -25,8 +25,8 @@ router.get('/register', (req, res) => {
   res.render('register', {layout: 'main'});
 })
 
-router.get('/test', ensureAuthenticated, (req, res) => {
-  res.render('test', {layout : 'main'});
+router.get('/about', (req, res) => {
+  res.render('about', {layout : 'main'});
 })
 
 // API
