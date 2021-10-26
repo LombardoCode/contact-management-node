@@ -2,7 +2,11 @@
   <div id="errors" class="has-background-danger-dark has-text-white px-3 py-3 mb-4 border">
     <ul>
       {{#each errors}}
-        <li>• {{this.msg}}</li>
+        {{#if this.msg}}
+          <li>• {{this.msg}}</li>
+        {{else}}
+          <li>• {{this}}</li>
+        {{/if}}
       {{/each}}
     </ul>
   </div>

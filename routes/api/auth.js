@@ -36,12 +36,25 @@ router.post('/register',
 })
 
 // User login
-router.post('/login', async (req, res, next) => {
-  return passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: false
-  })(req, res, next);
+router.post('/login',
+    check('email')
+      .notEmpty().withMessage('El campo de email es requerido')
+      .isEmail().withMessage('El formato del email es inválido'),
+    check('password')
+      .notEmpty().withMessage('El campo de contraseña es requerido'),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      req.flash('errors', errors.array());
+      return res.redirect('/login');
+    }
+
+    return passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true
+    })(req, res, next);
 });
 
 router.get('/logout', (req, res, next) => {

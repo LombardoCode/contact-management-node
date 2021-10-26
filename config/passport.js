@@ -6,8 +6,9 @@ const { Op } = require('sequelize');
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
-  passwordField: 'password'
-}, async (email, password, done) => {
+  passwordField: 'password',
+  passReqToCallback: true
+}, async (req, email, password, done) => {
   const user = await User.findOne({
     where: {
       email: {
@@ -19,18 +20,17 @@ passport.use(new LocalStrategy({
   if (user) {
     const samePasswords = await bcrypt.compareSync(password, user.password);
     if (samePasswords) {
-      return done(null, user);
+      done(null, user);
     } else {
-      return done(null, false, { message: 'Error2.' })
+      done(null, false, req.flash("errors", "Las contraseñas no coinciden"))
     }
   } else {
-    return done(null, false, { message: 'Error1.' })
+    done(null, false, { message: 'Error1.' })
   }
 }));
 
 passport.serializeUser((user, done) => {
-  console.log("passport 1")
-  return done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
