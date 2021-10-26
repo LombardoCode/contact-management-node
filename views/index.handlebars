@@ -1,7 +1,7 @@
 <div class="has-background-info-dark height-100vh">
   {{#> container}}
-    <div class="columns is-variable ">
-      <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped" style="height: 100%;">
+    <div class="columns is-variable">
+      <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped mb-4-mobile" style="height: 100%;">
         <header class="has-background-info px-3 py-2">
           <h3 class="has-text-white">Crear un contacto</h3>
         </header>
@@ -19,13 +19,13 @@
           </div>
         </form>
       </section>
-      <div class="column border has-background-white ml-2-tablet is-7-desktop px-0 py-0 is-clipped" style="height: 500px">
-        <header class="has-background-info px-3 py-2">
+      <div class="column border has-background-white ml-2-tablet is-7-desktop px-0 py-0" style="max-height: 500px; overflow-y: scroll;">
+        <header id="contacts-header" class="has-background-info px-3 py-2">
           <h3 class="has-text-white">Lista de contactos</h3>
         </header>
         <table id="contacts-table" class="table is-fullwidth">
           <thead>
-            <tr>
+            <tr id="sticky-table-header">
               <th>Nombre</th>
               <th>Teléfono</th>
               <th>Opciones</th>
@@ -118,6 +118,25 @@
     border-radius: 10px;
   }
 
+  .mb-4-mobile {
+    margin-bottom: 40px;
+  }
+
+  #contacts-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  #sticky-table-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 40px;
+    z-index: 1;
+    background: #ffffff;
+  }
+
   @media screen and (width >= 769px) {
     .mr-2-tablet {
       margin-right: 10px;
@@ -125,6 +144,10 @@
 
     .ml-2-tablet {
       margin-left: 10px;
+    }
+
+    .mb-4-mobile {
+      margin-bottom: 0px;
     }
   }
 </style>
