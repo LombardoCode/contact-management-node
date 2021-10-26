@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Contact } = require('../../src/db');
 const { Op } = require('sequelize');
+const { check, validationResult } = require('express-validator');
 
 // Get all contacts
 router.get('/', async (req, res) => {
@@ -17,10 +18,28 @@ router.get('/', async (req, res) => {
 })
 
 // Create contact
-router.post('/', async (req, res) => {
-  req.body.userId = req.user.id;
-  const contact = await Contact.create(req.body);
-  res.json(contact);
+router.post('/',
+  check('name')
+    .notEmpty().withMessage('El campo de nombre es requerido'),
+  check('phone')
+    .notEmpty().withMessage('El campo de teléfono es requerido')
+    .isInt().withMessage('El campo de teléfono debe de ser númerico'),
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({
+        success: false,
+        errors: errors.array()
+      });
+    }
+
+    req.body.userId = req.user.id;
+    const contact = await Contact.create(req.body);
+    res.json({
+      success: true,
+      contact
+    });
 })
 
 // Get specific contact

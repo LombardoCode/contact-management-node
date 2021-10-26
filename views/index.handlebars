@@ -2,22 +2,25 @@
   {{#> container}}
     <div class="columns is-variable">
       <section class="column border has-background-white mr-2-tablet is-5-desktop px-0 py-0 is-clipped mb-4-mobile" style="height: 100%;">
-        <header class="has-background-info px-3 py-2">
+        <header class="has-background-info px-3 py-2 mb-3">
           <h3 class="has-text-white">Crear un contacto</h3>
         </header>
-        <form class="px-3 py-4">
-          <div class="control mb-5">
-            <label for="name">Nombre</label>
-            <input id="name" class="input" type="text" name="name" placeholder="Ingrese el nombre del contacto">
-          </div>
-          <div class="control mb-4">
-            <label for="phone">Teléfono</label>
-            <input id="phone" class="input" type="text" name="phone" placeholder="Ingrese el teléfono del contacto">
-          </div>
-          <div class="control">
-            <input id="submit" class="button is-info is-fullwidth is-medium" type="submit" value="Crear contacto">
-          </div>
-        </form>
+        <div class="px-3">
+          <div id="errors" class="hidden has-background-danger-dark has-text-white px-3 py-2 border"></div>
+          <form class="py-3">
+            <div class="control mb-5">
+              <label for="name">Nombre</label>
+              <input id="name" class="input" type="text" name="name" placeholder="Ingrese el nombre del contacto">
+            </div>
+            <div class="control mb-4">
+              <label for="phone">Teléfono</label>
+              <input id="phone" class="input" type="text" name="phone" placeholder="Ingrese el teléfono del contacto">
+            </div>
+            <div class="control">
+              <input id="submit" class="button is-info is-fullwidth is-medium" type="submit" value="Crear contacto">
+            </div>
+          </form>
+        </div>
       </section>
       <div class="column border has-background-white ml-2-tablet is-7-desktop px-0 py-0" style="max-height: 500px; overflow-y: scroll;">
         <header id="contacts-header" class="has-background-info px-3 py-2">
@@ -61,6 +64,9 @@
       // Preventing the page to be refreshed
       e.preventDefault();
 
+      // Getting the errors container
+      let errors_container = $('#errors');
+
       // Getting the input values
       let name = $('#name');
       let phone = $('#phone');
@@ -73,8 +79,29 @@
           phone: phone.val()
         },
         success: function (data, status, xhr) {
-          console.log(data);
-          addElementToTable(data);
+          // Cleaning the errors container
+          errors_container.empty();
+
+          if (!data.success) {
+            // Showing the errors message
+            errors_container.is(':hidden') ? errors_container.toggleClass("hidden") : null;
+
+            // Creating the HTML markup for the errors
+            for (let i = 0; i < data.errors.length; i++) {
+              let error = data.errors[i].msg;
+              let p = $('<p></p>').text(error);
+              errors_container.append(p);
+            }
+          } else {
+            if (data.success) {
+              // Hidding the errors container
+              errors_container.is(':hidden') ? null : errors_container.toggleClass("hidden");
+
+              console.log(data);
+              addElementToTable(data.contact);
+
+            }
+          }
 
           name.val('');
           phone.val('');
@@ -83,8 +110,6 @@
           console.log(errorMessage);
         }
       });
-
-      console.log("hola")
     });
   });
 
@@ -110,6 +135,9 @@
 </script>
 
 <style>
+  .hidden {
+    display: none;
+  }
   .height-100vh {
     height: 100vh;
   }
